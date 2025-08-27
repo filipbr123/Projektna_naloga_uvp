@@ -118,8 +118,9 @@ def polepšaj():
         slovar['Država'] = slovar_držav[slovar['Država']]
     return izluščeni_podatki
 
-with open('vsi_podatki.csv', 'w', encoding='UTF-8') as dat:
-    končni_seznam = polepšaj()
-    dat.write(f'Ime,Država,Spodnja višina [m],Zgornja višina [m],Dolžina prog [km],Dolžina črnih prog [km],Dolžina modrih prog [km],Število žičnic,Cena [€]\n')
-    for slovar in končni_seznam:
-        dat.write(f'{slovar['Ime']},{slovar['Država']},{slovar['Spodnja višina']},{slovar['Zgornja višina']},{slovar['Dolžina prog']},{slovar['Dolžina črnih prog']},{slovar['Dolžina modrih prog']},{slovar['Število žičnic']},{slovar['Cena']}\n')
+def končna():
+    with open('Podatki/vsi_podatki.csv', 'w', encoding='UTF-8') as dat:
+        končni_seznam = polepšaj()
+        dat.write(f'Ime,Država,Spodnja višina [m],Zgornja višina [m],Dolžina prog [km],Dolžina črnih prog [km],Dolžina modrih prog [km],Število žičnic,Cena [€]\n')
+        for slovar in končni_seznam:
+            dat.write(f'{slovar['Ime']},{slovar['Država']},{slovar['Spodnja višina']},{slovar['Zgornja višina']},{slovar['Dolžina prog']},{slovar['Dolžina črnih prog']},{slovar['Dolžina modrih prog']},{slovar['Število žičnic']},{slovar['Cena']}\n')
