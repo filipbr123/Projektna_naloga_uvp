@@ -3,6 +3,7 @@ import re
 
 
 def prva():
+    '''Iz html datoteke izbere pomembne odseke in vrne seznam odstavkov. Vsak odstavk vsebuje podatke za eno smučišče'''
     seznam_vseh = []
     for i in range(7):
         if i == 1:
@@ -18,8 +19,8 @@ def prva():
     return seznam_vseh
 
 
-
 def smučišče_podatki():
+    '''Iz vsakega odstavka najde želene podatke in vrne seznam slovarjev'''
     smučišča = prva()
     seznam_podatkov = []
     for smučišče in smučišča:
@@ -89,7 +90,6 @@ def smučišče_podatki():
     return seznam_podatkov
 
 
-
 def zlepi(sez):
     if len(sez) == 0:
         return ''
@@ -105,12 +105,14 @@ def zamenjaj(sez):
         return sez[0] + "'" + zlepi(sez[1:])
     
 def odstrani(niz):
+    '''Odstrani odvečne znake iz nizov. Funkcija vsebuje tudi zgornji dve pomožni funkciji'''
     vzorec1 = '&#8203;'
     vzorec2 = ' <span class="closed-resort red"> (temporarily closed)</span>'
     vzorec3 = '&#039;'
     return zamenjaj(zlepi(zlepi(niz.split(vzorec1)).split(vzorec2)).split(vzorec3))
 
 def polepšaj():
+    '''Prevede imena držav v slovenščino in s pomočjo zgornje funkcije odstrani odvečne znake iz slovarjev'''
     izluščeni_podatki = smučišče_podatki()
     slovar_držav = {'Austria': 'Avstrija', 'Switzerland': 'Švica', 'Italy': 'Italija', 'France': 'Francija', 'Slovenia': 'Slovenija', 'Germany': 'Nemčija', 'Liechtenstein': 'Lihtenštajn'}
     for slovar in izluščeni_podatki:
@@ -119,6 +121,7 @@ def polepšaj():
     return izluščeni_podatki
 
 def končna():
+    '''Naredi csv datoteko z vsemi podatki'''
     with open('Podatki/vsi_podatki.csv', 'w', encoding='UTF-8') as dat:
         končni_seznam = polepšaj()
         dat.write(f'Ime,Država,Spodnja višina [m],Zgornja višina [m],Dolžina prog [km],Dolžina črnih prog [km],Dolžina modrih prog [km],Število žičnic,Cena [€]\n')
